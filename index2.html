@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Parts Inventory</title>
+    <style>
+        /* Centers the entire UI vertically and horizontally on the screen */
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            background-color: #121214; 
+            color: #e0e0e6; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        /* Sleek dark container to match the card format in image_5ea6c1.png */
+        .container { 
+            width: 100%;
+            max-width: 400px; 
+            background: #1e1e24; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); 
+            box-sizing: border-box;
+        }
+        
+        h2 { 
+            margin-top: 0; 
+            margin-bottom: 25px;
+            color: #ffffff; 
+            font-size: 24px;
+        }
+        
+        label { 
+            display: block; 
+            margin: 15px 0 8px; 
+            font-weight: bold; 
+            font-size: 14px;
+            color: #b0b0bc;
+        }
+        
+        /* Dark mode styling for input fields and dropdowns */
+        input, select { 
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 5px; 
+            background-color: #2a2a32;
+            border: 1px solid #444450; 
+            border-radius: 6px; 
+            color: #ffffff;
+            font-size: 15px;
+            box-sizing: border-box; 
+            transition: border-color 0.2s;
+        }
+
+        input::placeholder {
+            color: #6a6a75;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2ecc71;
+        }
+        
+        /* Vibrant button contrast for dark mode */
+        button { 
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #2ecc71; 
+            color: #ffffff; 
+            border: none; 
+            border-radius: 6px;
+            font-size: 16px; 
+            font-weight: bold;
+            cursor: pointer; 
+            transition: background-color 0.2s;
+        }
+        
+        button:hover { 
+            background-color: #27ae60; 
+        }
+        
+        #status { 
+            margin-top: 15px;
+            font-weight: bold; 
+            text-align: center; 
+            font-size: 14px;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Log Workshop Transaction</h2>
+    <form id="inventoryForm">
+        <label for="partName">Part Name / SKU</label>
+        <input type="text" id="partName" placeholder="e.g., M8 Bolts, 10k Ohm Resistor" required>
+
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" min="1" placeholder="e.g., 50" required>
+
+        <label for="action">Transaction Type</label>
+        <select id="action">
+            <option value="Restock (+)">Restock (+)</option>
+            <option value="Used (-)">Used (-)</option>
+        </select>
+
+        <button type="submit">Submit Transaction</button>
+    </form>
+    <div id="status"></div>
+</div>
+
+<script>
+    // Replace this string with your actual Google Apps Script Web App URL
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxhLu_fkCPooh-FsMkKVJ6oQjflcGRJdHegqFxka0tYoofCq4BPsg8CE4qOh7Z_fCh1/exec";
+
+    document.getElementById('inventoryForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const statusDiv = document.getElementById('status');
+        statusDiv.textContent = "Sending transaction...";
+        statusDiv.style.color = "#a0a0aa";
+
+        const data = {
+            partName: document.getElementById('partName').value,
+            quantity: document.getElementById('quantity').value,
+            action: document.getElementById('action').value
+        };
+
+        fetch(WEB_APP_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        })
+        .then(() => {
+            statusDiv.textContent = "✔ Transaction recorded successfully!";
+            statusDiv.style.color = "#2ecc71";
+            document.getElementById('inventoryForm').reset();
+        })
+        .catch(error => {
+            statusDiv.textContent = "❌ Error recording transaction.";
+            statusDiv.style.color = "#e74c3c";
+            console.error("Error:", error);
+        });
+    });
+</script>
+
+</body>
+</html>
