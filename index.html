@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workshop Parts Inventory</title>
     <style>
-        /* Centers the entire UI vertically and horizontally on the screen */
         body { 
             font-family: Arial, sans-serif; 
             margin: 0; 
@@ -16,8 +15,7 @@
             align-items: center;
             min-height: 100vh;
         }
-        
-        /* Sleek dark container to match the card format in image_5ea6c1.png */
+
         .container { 
             width: 100%;
             max-width: 400px; 
@@ -42,8 +40,7 @@
             font-size: 14px;
             color: #b0b0bc;
         }
-        
-        /* Dark mode styling for input fields and dropdowns */
+
         input, select { 
             width: 100%; 
             padding: 12px; 
@@ -65,8 +62,6 @@
             outline: none;
             border-color: #2ecc71;
         }
-        
-        /* Vibrant button contrast for dark mode */
         button { 
             width: 100%;
             padding: 12px;
@@ -117,7 +112,6 @@
 </div>
 
 <script>
-    // Replace this string with your actual Google Apps Script Web App URL
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxhLu_fkCPooh-FsMkKVJ6oQjflcGRJdHegqFxka0tYoofCq4BPsg8CE4qOh7Z_fCh1/exec";
 
     document.getElementById('inventoryForm').addEventListener('submit', function(e) {
