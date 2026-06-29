@@ -134,12 +134,12 @@
             body: JSON.stringify(data)
         })
         .then(() => {
-            statusDiv.textContent = "✔ Transaction recorded successfully!";
+            statusDiv.textContent = "Transaction recorded successfully!";
             statusDiv.style.color = "#2ecc71";
             document.getElementById('inventoryForm').reset();
         })
         .catch(error => {
-            statusDiv.textContent = "❌ Error recording transaction.";
+            statusDiv.textContent = "Error recording transaction.";
             statusDiv.style.color = "#e74c3c";
             console.error("Error:", error);
         });
